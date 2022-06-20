@@ -24,6 +24,6 @@ int main(int argc, char *argv[], char **envp)
                 return (ft_putstr_fd("file close error", 1));//임시적 -1, error 리턴
   }
   else
-    return (ft_putstr_fd("I want argc == 5! check one more time", 1));
+    return (ft_putstr_fd("I want argc == 4! check one more time", 1));
   return (0);
 }
