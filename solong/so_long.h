@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seoyepar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 03:15:22 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/07/05 03:15:47 by seoyepar         ###   ########.fr       */
+/*   Updated: 2022/07/05 03:35:02 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	key_move(t_sl *sl, int i, int j);
 void	finish(t_sl *sl);
 int		ft_exit_sl(t_sl *sl);
 void	match_img(t_sl *sl);
-
+void	match_window(t_sl *sl, int i, int j);
 int		check_new_line(char *r_line);
 char	*print_line(int new_line, char **r_line);
 char	*free_line(char **r_line);

@@ -6,7 +6,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 AR = ar rc
 
-SRCS = so_long.c get_next_line.c get_next_line_utils.c ft_error.c utils.c ft_split.c
+SRCS = so_long.c get_next_line.c get_next_line_utils.c ft_error.c so_long_utils.c ft_split.c
 
 OBJ = $(SRCS:.c=.o)
 

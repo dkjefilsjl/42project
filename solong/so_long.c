@@ -6,7 +6,7 @@
 /*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 03:07:48 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/07/05 03:22:26 by seoyepar         ###   ########.fr       */
+/*   Updated: 2022/07/05 03:34:35 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,47 +66,45 @@ void	match_img(t_sl *sl)
 	int	i;
 	int	j;
 
-	i = -1;
-	while (sl->board[++i])
+	i = 0;
+	while (sl->board[i])
 	{
-		j = -1;
-		while (sl->board[i][++j])
+		j = 0;
+		while (sl->board[i][j])
 		{
-			mlx_put_image_to_window(sl->mlx, sl->win, sl->grass, j * 50, i * 50);
-			if (sl->board[i][j] == '1')
-				mlx_put_image_to_window(sl->mlx, sl->win, sl->fence, j * 50, i * 50);
-			else if(sl->board[i][j] == 'P')
-			{
-				mlx_put_image_to_window(sl->mlx, sl->win, sl->dog, j * 50, i * 50);
-				sl->x = i;
-				sl->y = j;
-			}
-			else if (sl->board[i][j] == 'E')
-				mlx_put_image_to_window(sl->mlx, sl->win, sl->house, j * 50, i * 50);
-			else if (sl->board[i][j] == 'C')
-				mlx_put_image_to_window(sl->mlx, sl->win, sl->bone, j * 50, i * 50);
+			match_window(sl, i, j);
+			j++;
 		}
+		i++;
 	}
 }
 
-int	check_key(int key, t_sl *sl)
+void	match_window(t_sl *sl, int i, int j)
 {
-	if (key == KEY_ESC)
-		ft_exit_sl(sl);
-	if (key == KEY_W)
-		key_move(sl, -1, 0);
-	if (key == KEY_A)
-		key_move(sl, 0, -1);
-	if (key == KEY_S)
-		key_move(sl, 1, 0);
-	if (key == KEY_D)
-		key_move(sl, 0, 1);
-	return (0);
+	mlx_put_image_to_window(sl->mlx, sl->win, \
+		sl->grass, j * 50, i * 50);
+	if (sl->board[i][j] == '1')
+		mlx_put_image_to_window(sl->mlx, sl->win, \
+			sl->fence, j * 50, i * 50);
+	else if (sl->board[i][j] == 'P')
+	{
+		mlx_put_image_to_window(sl->mlx, sl->win, \
+		sl->dog, j * 50, i * 50);
+		sl->x = i;
+		sl->y = j;
+	}
+	else if (sl->board[i][j] == 'E')
+		mlx_put_image_to_window(sl->mlx, sl->win, \
+		sl->house, j * 50, i * 50);
+	else if (sl->board[i][j] == 'C')
+		mlx_put_image_to_window(sl->mlx, sl->win, \
+		sl->bone, j * 50, i * 50);
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_sl	*sl;
+
 	if (argc != 2)
 		ft_exit("argc == 2. map upload please!");
 	sl = malloc(sizeof(t_sl));
@@ -114,7 +112,8 @@ int main(int argc, char *argv[])
 	sl_init(sl);
 	gnl_map(argv[1], sl);
 	check_map(sl);
-	sl->win = mlx_new_window(sl->mlx, 50 * sl->width, 50 * sl->height, "so_long");
+	sl->win = mlx_new_window(sl->mlx, 50 * sl->width, \
+		50 * sl->height, "so_long");
 	match_img(sl);
 	mlx_hook(sl->win, 2, 0, &check_key, sl);
 	mlx_hook(sl->win, 17, 0, &ft_exit_sl, sl);
