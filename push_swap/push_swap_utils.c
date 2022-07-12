@@ -1,41 +1,67 @@
 #include "push_swap.h"
 
-static long longft_over(long long flag, long long tmp, long long num);
-
-int	ft_atoi(const char *str)
+long long	ft_atoi(const char *str)
 {
-	size_t  i;
-	long long num;
-	int flag;
-	long long tmp;
+	long long	num;
+	int			neg;
 
-	i = 0;
+	neg = 1;
 	num = 0;
-	flag = 1;
-	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-		i++;
-	if (str[i] == '-')
-		flag = -1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while (str[i] >= '0' && str[i] <= '9')
+	while ((9 <= *str && *str <= 13) || *str == ' ')
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		tmp = num;
-		num = num * 10;
-		num += str[i++] - '0';
-		num = ft_over(flag, tmp, num);
-		if ((tmp > 0) && (num <= 0))
-		break ;
+		if (*str == '-')
+			neg = -1;
+		str++;
 	}
-	return (num * flag);
+	while (*str != 0 && '0' <= *str && *str <= '9')
+	{
+		num = num * 10 + (*str - '0');
+		str++;
+		if ((neg == -1 && num - 1 > INT_MAX) \
+		|| (neg == 1 && num > INT_MAX))
+			ft_exit("Error\n");
+	}
+	return (num * neg);
 }
 
-static long longft_over(long long flag, long long tmp, long long num)
+void	ft_check_digit(char *str)
 {
-	if ((flag == -1) && (tmp > num))
-		return (0);
-	else if ((flag != -1) && (tmp > num))
-		return (-1);
+	int	i;
+	int	len;
+
+	i = 0;
+	len = ft_strlen(str);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]) && str[i] != '+' && str[i] != '-')
+			ft_exit("Error\n");
+		if ((str[i] == '+' || str[i] == '-') && \
+			((i == len - 1) || !ft_isdigit(str[i + 1])))
+			ft_exit("Error\n");
+		if ((str[i] == '+' || str[i] == '-') && i != 0)
+			ft_exit("Error\n");
+		i++;
+	}
+}
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
 	else
-		return (num);
+		return (0);
 }
