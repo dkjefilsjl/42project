@@ -26,7 +26,7 @@ void	add_node(t_data *list, int data)
 	list->size++;
 }
 
-void	ft_swap (t_data *list)
+void	ft_swap(t_data *list)
 {
 	t_node	*new;
 
@@ -68,9 +68,40 @@ void	ft_rrotate(t_data *list)
 	new = list->tail;
 	list->tail = new->prev;
 	new->next = list->head;
+	list->head->prev = new;
 	list->head = new;
 	new->prev = NULL;
-	if (list->tail->prev == NULL)
-		list->tail->prev = new;
 	list->tail->next = NULL;
+}
+
+void	ft_push(t_data *to, t_data *from)
+{
+	t_node	*new;
+
+	if (from->size < 1)
+		return ;
+	if (to->size < 1)
+	{
+		to->head = from->head;
+		to->tail = from->head;
+		from->head = from->head->next;
+		from->head->prev = NULL;
+		to->head->next = NULL;
+		if (from->size == 1)
+			from->tail = NULL;
+		to->size++;
+		from->size--;
+	}
+	else
+	{
+		to->size++;
+		from->size--;
+		new = to->head;
+		new->prev = from->head;
+		to->head = from->head;
+		from->head = from->head->next;
+		if (from->head)
+			from->head->prev = NULL;
+		new->prev->next = new;
+	}
 }

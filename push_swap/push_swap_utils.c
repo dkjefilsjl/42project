@@ -65,3 +65,34 @@ int	ft_isdigit(int c)
 	else
 		return (0);
 }
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	int	i;
+
+	i = 0;
+	while (n > 0 && s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+		{
+			break ;
+		}
+		i++;
+		n--;
+	}
+	if (n == 0)
+	{
+		return (0);
+	}
+	else
+	{
+		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	}
+}
+
+void	ft_putstr(char *s)
+{
+	if (!s)
+		return ;
+	write(1, s, ft_strlen(s));
+}
