@@ -1,98 +1,67 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 23:33:08 by seoyepar          #+#    #+#             */
+/*   Updated: 2022/07/15 05:08:06 by seoyepar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-long long	ft_atoi(const char *str)
+void	ft_exit(char *s)
 {
-	long long	num;
-	int			neg;
-
-	neg = 1;
-	num = 0;
-	while ((9 <= *str && *str <= 13) || *str == ' ')
-		str++;
-	if (*str == '+' || *str == '-')
-	{
-		if (*str == '-')
-			neg = -1;
-		str++;
-	}
-	while (*str != 0 && '0' <= *str && *str <= '9')
-	{
-		num = num * 10 + (*str - '0');
-		str++;
-		if ((neg == -1 && num - 1 > INT_MAX) \
-		|| (neg == 1 && num > INT_MAX))
-			ft_exit("Error\n");
-	}
-	return (num * neg);
-}
-
-void	ft_check_digit(char *str)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = ft_strlen(str);
-	while (str[i])
-	{
-		if (!ft_isdigit(str[i]) && str[i] != '+' && str[i] != '-')
-			ft_exit("Error\n");
-		if ((str[i] == '+' || str[i] == '-') && \
-			((i == len - 1) || !ft_isdigit(str[i + 1])))
-			ft_exit("Error\n");
-		if ((str[i] == '+' || str[i] == '-') && i != 0)
-			ft_exit("Error\n");
-		i++;
-	}
-}
-
-size_t	ft_strlen(const char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		i++;
-	}
-	return (i);
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	int	i;
-
-	i = 0;
-	while (n > 0 && s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-		{
-			break ;
-		}
-		i++;
-		n--;
-	}
-	if (n == 0)
-	{
-		return (0);
-	}
-	else
-	{
-		return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-	}
-}
-
-void	ft_putstr(char *s)
-{
-	if (!s)
-		return ;
 	write(1, s, ft_strlen(s));
+	exit(1);
+}
+
+void	init_ab(t_data *td)
+{
+	td->head = NULL;
+	td->tail = NULL;
+	td->size = 0;
+}
+
+void	free_node(t_data *list)
+{
+	t_node	*new;
+
+	while (list->head)
+	{
+		new = list->head;
+		list->head = list->head->next;
+		free(new);
+	}
+	list->size = 0;
+	list->tail = NULL;
+}
+
+void	free_ch(char **ch)
+{
+	int	i;
+
+	i = 0;
+	while (ch[i])
+	{
+		free(ch[i]);
+		i++;
+	}
+	free(ch);
+}
+
+int	prev_sorted(t_data *a)
+{
+	t_node	*i;
+
+	i = a->head;
+	while (i->next)
+	{
+		if (i->id > i->next->id)
+			return (0);
+		i = i->next;
+	}
+	return (1);
 }

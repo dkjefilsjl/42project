@@ -1,30 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_node.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 23:33:38 by seoyepar          #+#    #+#             */
+/*   Updated: 2022/07/15 05:08:00 by seoyepar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
-
-void	add_node(t_data *list, int data)
-{
-	t_node	*new;
-
-	new = malloc(sizeof(t_node));
-	if (!new)
-		ft_exit("malloc Error\n");
-	new->value = data;
-	new->next = NULL;
-	new->prev = NULL;
-	new->id = 0;
-	if (list->size == 0)
-	{
-		list->head = new;
-		list->tail = new;
-	}
-	else
-	{
-		new->next = NULL;
-		new->prev = list->tail;
-		list->tail->next = new;
-		list->tail = new;
-	}
-	list->size++;
-}
 
 void	ft_swap(t_data *list)
 {
@@ -44,7 +30,7 @@ void	ft_swap(t_data *list)
 	list->head->next = new;
 }
 
-void	ft_rotate (t_data *list) //rotate, rro 다시 살피기! 이거 하던 중
+void	ft_rotate(t_data *list)
 {
 	t_node	*new;
 
@@ -82,15 +68,7 @@ void	ft_push(t_data *to, t_data *from)
 		return ;
 	if (to->size < 1)
 	{
-		to->head = from->head;
-		to->tail = from->head;
-		from->head = from->head->next;
-		from->head->prev = NULL;
-		to->head->next = NULL;
-		if (from->size == 1)
-			from->tail = NULL;
-		to->size++;
-		from->size--;
+		ft_push_two(to, from);
 	}
 	else
 	{
@@ -103,5 +81,20 @@ void	ft_push(t_data *to, t_data *from)
 		if (from->head)
 			from->head->prev = NULL;
 		new->prev->next = new;
+		if (from->size == 0)
+			from->tail = NULL;
 	}
+}
+
+void	ft_push_two(t_data *to, t_data *from)
+{
+	to->head = from->head;
+	to->tail = from->head;
+	from->head = from->head->next;
+	from->head->prev = NULL;
+	to->head->next = NULL;
+	if (from->size == 1)
+		from->tail = NULL;
+	to->size++;
+	from->size--;
 }

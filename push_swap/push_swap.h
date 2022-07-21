@@ -1,42 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/14 23:32:32 by seoyepar          #+#    #+#             */
+/*   Updated: 2022/07/15 05:08:08 by seoyepar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <unistd.h>
-# include <stdlib.h>
-#include <stdio.h>
+# include "plus.h"
 
-# define INT_MAX 2147483647
-
-typedef struct s_node
-{
-	int value;
-	int id;
-	struct s_node *next;
-	struct s_node *prev;
-}   t_node;
-
-typedef struct s_data
-{
-	t_node *head;
-	t_node *tail;
-	int size;
-}   t_data;
-
-char	**ft_split(char const *s, char c);
-long long	ft_atoi(const char *str);
-size_t	ft_strlen(const char *s);
-t_node	*newNode(int data);
-void	add_node(t_data *list, int data);
-void	ft_exit(char *s);
-void	init_ab(t_data *td);
-int		ft_isdigit(int c);
-void	parse_data(t_data *list, int i, char *argv[]);
-void	push_data_a(t_data *a, int argc, char *argv[]);
-void	ft_check_digit(char *str);
-void	ft_swap(t_data *list);
-void	ft_rotate (t_data *list);
-void	ft_rrotate(t_data *list);
-void	ft_push(t_data *to, t_data *from);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_putstr(char *s);
+void		sand_algo(t_data *a, t_data *b);
+void		push_swap(char *c, t_data *a, t_data *b);
+void		arse_data(t_data *list, int i, char *argv[]);
+void		free_nodes(t_data *list);
+void		size_three_sort(t_data *a);
+void		size_four_sort(t_data *a, t_data *b);
+void		size_five_sort(t_data *a, t_data *b);
+void		size_any_sort(t_data *a, t_data *b);
+void		choose_ra_rra(t_data *a, int size);
+void		choose_rb_rrb(t_data *b, int size);
+void		size_any_sort_two(t_data *a, t_data *b);
 
 #endif
