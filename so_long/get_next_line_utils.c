@@ -6,11 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 11:46:11 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/08/01 10:00:31 by marvin           ###   ########.fr       */
+/*   Updated: 2022/08/01 10:20:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h" //
+#include "so_long.h" //hi
 
 size_t	ft_strlen(const char *s)
 {
