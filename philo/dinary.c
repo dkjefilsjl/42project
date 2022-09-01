@@ -2,22 +2,22 @@
 
 int		ft_eat(t_philo *p)
 {
+	//printf("id = %d, hoho1\n", p->id);
 	pthread_mutex_lock(&(p->argu->fork[p->lfork]));
-	if(!ft_isfinished(p))
-		ft_print(p, FORK);
+	ft_print(p, FORK);
 	if (p->argu->numOfPhilo == 1)
 	{
 		ft_sleep(p->ate, p->argu->time_to_die);
 		return (1);
 	}
 	pthread_mutex_lock(&(p->argu->fork[p->rfork]));
-	if (!ft_isfinished(p))
-		ft_print(p, FORK);
+	ft_print(p, FORK);
+	//pthread_mutex_lock(&(p->philo_mtx));
 	p->ate = ft_gettime();
-	if (!ft_isfinished(p))
-		ft_print(p, EAT);
-	ft_sleep(p->ate, p->argu->time_to_eat);
 	p->eat_cnt++;
+	//pthread_mutex_unlock(&(p->philo_mtx));
+	ft_print(p, EAT);
+	ft_sleep(p->ate, p->argu->time_to_eat);
 	pthread_mutex_lock(&(p->argu->done_mtx));
 	if (p->eat_cnt == p->argu->must_eat)
 		p->argu->done_people++;
@@ -27,12 +27,13 @@ int		ft_eat(t_philo *p)
 	return (0);
 }
 
-int		ft_nap(t_philo *p)
+int		ft_nap(long long time, t_philo *p)
 {
+	//printf("pupu\n");
 	if (!ft_isfinished(p))
 	{
 		ft_print(p, SLEEP);
-		ft_sleep(ft_gettime(), p->argu->time_to_sleep);
+		ft_sleep(time, p->argu->time_to_sleep);
 	}
 	else
 		return (1);
@@ -41,6 +42,7 @@ int		ft_nap(t_philo *p)
 
 int		ft_think(t_philo *p)
 {
+	//printf("hkkk\n");
 	if (!ft_isfinished(p))
 		ft_print(p, THINK);
 	else
@@ -67,7 +69,7 @@ void	*philo_diary(void *philo)
 		usleep(100);
 	while (1)
 	{
-		if (ft_eat(p) || ft_nap(p) || ft_think(p))
+		if (ft_eat(p) || ft_nap(ft_gettime(), p) || ft_think(p))
 			break;
 		usleep(100);
 	}

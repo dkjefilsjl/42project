@@ -26,7 +26,8 @@ int	ft_atoi(const char *str)
 void	ft_print(t_philo *p, char *s)
 {
 	pthread_mutex_lock(&(p->argu->print_mtx));
-	printf("%lld %d %s\n", ft_gettime() - p->argu->start_time, p->id, s);
+	if(!ft_isfinished(p))
+		printf("%lld %d %s\n", ft_gettime() - p->argu->start_time, p->id, s);
 	pthread_mutex_unlock(&(p->argu->print_mtx));
 }
 
@@ -53,5 +54,7 @@ int		ft_isfinished(t_philo *p)
 void	ft_sleep(long long start, long long time)
 {
 	while (time > ft_gettime() - start)
+	{
 		usleep(100);
+	}
 }

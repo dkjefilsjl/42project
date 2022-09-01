@@ -7,11 +7,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define FORK "has taken a fork🍴"
-# define EAT "is eating🍝"
-# define SLEEP "is sleeping💤"
-# define THINK "is thinking🤔"
-# define DIED "died😱"
+# define FORK "has taken a fork🍴\n"
+# define EAT "is eating🍝\n"
+# define SLEEP "is sleeping💤\n"
+# define THINK "is thinking🤔\n"
+# define DIED "died😱\n"
 
 typedef struct	s_argu
 {
@@ -34,6 +34,7 @@ typedef struct s_philo
 {
 	int			id;
 	pthread_t	mine;
+	pthread_mutex_t	philo_mtx;
 	int			lfork;
 	int 		rfork;
 	int			eat_cnt;
@@ -49,7 +50,7 @@ void	ft_print(t_philo *p, char *s);
 void	ft_sleep(long long start, long long time);
 int		ft_isfinished(t_philo *p);
 int		ft_eat(t_philo *p);
-int		ft_nap(t_philo *p);
+int		ft_nap(long long time, t_philo *p);
 int		ft_think(t_philo *p);
 void ft_died(t_philo p);
 void	*philo_diary(void *philo);
