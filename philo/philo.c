@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/01 22:40:08 by seoyepar          #+#    #+#             */
+/*   Updated: 2022/09/02 00:34:35 by seoyepar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	ar_check(int argc, char **argv, t_argu *argu)
@@ -7,13 +19,13 @@ int	ar_check(int argc, char **argv, t_argu *argu)
 	check = 0;
 	if ((argc != 5) && (argc != 6))
 		return (-1);
-	argu->numOfPhilo= ft_atoi(argv[1]);
+	argu->numofphilo = ft_atoi(argv[1]);
 	argu->time_to_die = ft_atoi(argv[2]);
 	argu->time_to_eat = ft_atoi(argv[3]);
 	argu->time_to_sleep = ft_atoi(argv[4]);
-	if(argc == 6)
+	if (argc == 6)
 		argu->must_eat = ft_atoi(argv[5]);
-	if (argu->numOfPhilo < 1)
+	if (argu->numofphilo < 1)
 		return (-1);
 	if (argu->time_to_die < 0)
 		return (-1);
@@ -26,76 +38,43 @@ int	ar_check(int argc, char **argv, t_argu *argu)
 	return (0);
 }
 
-void	ft_free(t_argu a, t_philo *p)
+int	main_simul(t_argu *a, t_philo *p)
 {
-	printf("hehe\n");
-	free(p);
-	if (a.fork)
-		free(a.fork);
-}
-
-int	ft_init(t_argu *argu, t_philo *philos)
-{
-	int	i;
-
-	i = 0;
-	argu->finish = 0;
-	argu->done_people = 0;
-	if (pthread_mutex_init(&(argu->print_mtx), NULL) != 0 \
-	 || pthread_mutex_init(&(argu->done_mtx), NULL) != 0 \
-	 || pthread_mutex_init(&(argu->die_mtx), NULL) != 0)
-			return (-1);
-	while(i < argu->numOfPhilo)
+	if (ft_init(a, p) == -1)
 	{
-		if (pthread_mutex_init(&(argu->fork[i]), NULL) != 0)
-			return (-1);
-			/*plus*/
-		if (pthread_mutex_init(&(philos[i].philo_mtx), NULL) != 0)
+		ft_free(a, p);
+		printf("init error\n");
 		return (-1);
-		philos[i].id = i + 1;
-		if (i == 0)
-			philos[i].lfork = argu->numOfPhilo - 1;
-		else
-			philos[i].lfork = i - 1;
-		philos[i].rfork = i;
-		philos[i].eat_cnt = 0;
-		philos[i].argu = argu;
-		i++;
+	}
+	if (ft_simulation(a, p) == -1)
+	{
+		ft_free(a, p);
+		printf("simulation error\n");
+		return (-1);
 	}
 	return (0);
 }
 
-
 int	main(int argc, char **argv)
 {
 	t_argu	argu;
-	t_philo *philos;
+	t_philo	*philos;
 
 	if (ar_check(argc, argv, &argu))
 	{
 		printf("error please check your argv!\n");
 		return (0);
 	}
-	philos = malloc(sizeof(t_philo) * argu.numOfPhilo);
-	argu.fork = malloc(sizeof(t_argu) * argu.numOfPhilo);
+	philos = malloc(sizeof(t_philo) * argu.numofphilo);
+	argu.fork = malloc(sizeof(t_argu) * argu.numofphilo);
 	if (!philos || !argu.fork)
 	{
-		ft_free(argu, philos);
+		ft_free(&argu, philos);
 		printf("malloc error\n");
-		return(0);
-	}
-	if (ft_init(&argu, philos) == -1)
-	{
-		ft_free(argu, philos);
-		printf("init error\n");
 		return (0);
 	}
-	if (ft_simulation(&argu, philos) == -1)
-	{
-		ft_free(argu, philos);
-		printf("simulation error\n");
+	if (main_simul(&argu, philos) == -1)
 		return (0);
-	}
-	ft_free(argu, philos);
+	ft_free(&argu, philos);
 	return (0);
 }
