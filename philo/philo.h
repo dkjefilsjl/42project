@@ -6,7 +6,7 @@
 /*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 22:46:41 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/09/02 00:35:28 by seoyepar         ###   ########.fr       */
+/*   Updated: 2022/09/02 03:28:13 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@
 # include <sys/time.h>
 # include <unistd.h>
 
-# define FORK "has taken a fork🍴\n"
-# define EAT "is eating🍝\n"
-# define SLEEP "is sleeping💤\n"
-# define THINK "is thinking🤔\n"
-# define DIED "died😱\n"
+# define FORK "has taken a fork\n"
+# define EAT "is eating\n"
+# define SLEEP "is sleeping\n"
+# define THINK "is thinking\n"
+# define DIED "died\n"
 
 typedef struct s_argu
 {
@@ -39,7 +39,7 @@ typedef struct s_argu
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	print_mtx;
 	pthread_mutex_t	done_mtx;
-	pthread_mutex_t	die_mtx;
+	pthread_mutex_t	fin_mtx;
 }	t_argu;
 
 typedef struct s_philo

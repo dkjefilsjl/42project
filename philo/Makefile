@@ -2,9 +2,9 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread
+CFLAGS = -Wall -Werror -Wextra
 
-SRCS = philo.c dinary.c simul.c util.c util2.c
+SRCS = philo.c diary.c simul.c util.c util2.c
 
 OBJ = $(SRCS:.c=.o)
 

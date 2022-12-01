@@ -6,7 +6,7 @@
 /*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 23:31:11 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/09/02 00:36:34 by seoyepar         ###   ########.fr       */
+/*   Updated: 2022/09/02 03:29:07 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_init_two(t_argu *a, t_philo *p)
 		p[i].eat_cnt = 0;
 		p[i].argu = a;
 		i++;
-		printf("index = %d\n", i);
 	}
 	return (0);
 }
@@ -72,7 +71,7 @@ int	ft_init(t_argu *a, t_philo *p)
 	a->done_people = 0;
 	if (pthread_mutex_init(&(a->print_mtx), NULL) != 0 \
 	|| pthread_mutex_init(&(a->done_mtx), NULL) != 0 \
-	|| pthread_mutex_init(&(a->die_mtx), NULL) != 0)
+	|| pthread_mutex_init(&(a->fin_mtx), NULL) != 0)
 		return (-1);
 	re = ft_init_two(a, p);
 	return (re);

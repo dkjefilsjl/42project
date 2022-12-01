@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/01 22:39:40 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/09/01 23:42:07 by seoyepar         ###   ########.fr       */
+/*   Created: 2022/09/02 00:47:27 by seoyepar          #+#    #+#             */
+/*   Updated: 2022/09/02 03:28:26 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int	philo_monitor_two(t_philo *p, int i, t_argu *a)
 		return (1);
 	if (a->done_people == a->numofphilo)
 	{
-		pthread_mutex_lock(&(a->die_mtx));
+		pthread_mutex_lock(&(a->fin_mtx));
 		p->argu->finish = 1;
-		pthread_mutex_unlock(&(a->die_mtx));
+		pthread_mutex_unlock(&(a->fin_mtx));
 		pthread_mutex_unlock(&(a->done_mtx));
 		return (1);
 	}

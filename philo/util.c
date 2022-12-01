@@ -6,7 +6,7 @@
 /*   By: seoyepar <seoyepar@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 22:40:01 by seoyepar          #+#    #+#             */
-/*   Updated: 2022/09/01 22:45:17 by seoyepar         ###   ########.fr       */
+/*   Updated: 2022/09/02 03:32:19 by seoyepar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ long long	ft_gettime(void)
 
 int	ft_isfinished(t_philo *p)
 {
-	pthread_mutex_lock(&(p->argu->die_mtx));
+	pthread_mutex_lock(&(p->argu->fin_mtx));
 	if (p->argu->finish == 1)
 	{
-		pthread_mutex_unlock(&(p->argu->die_mtx));
+		pthread_mutex_unlock(&(p->argu->fin_mtx));
 		return (1);
 	}
-	pthread_mutex_unlock(&(p->argu->die_mtx));
+	pthread_mutex_unlock(&(p->argu->fin_mtx));
 	return (0);
 }
 
@@ -67,6 +67,6 @@ void	ft_sleep(long long start, long long time)
 {
 	while (time > ft_gettime() - start)
 	{
-		usleep(100);
+		usleep(500);
 	}
 }
